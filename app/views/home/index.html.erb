@@ -1,0 +1,67 @@
+<script type="text/javascript">
+  window.restData = {
+  <% @rests.each_index do |ind|
+     rest = @rests[ind]
+     last = ind + 1 == @rests.length
+     %>
+  <%=rest.id %> : {
+  name: "<%=rest.hebrew_name.html_safe%>",
+  imgSrc: "<%= @logo_prefix %><%=rest.logo %>",
+
+  announced_recently: <%= rest.timediff[:hour] <= 3 ? true : false%>
+                          }
+                          <%= last ? "" : ","%>
+                          <% end %>
+                          }
+
+</script>
+<div id="tableContainer">
+  <div id="user-div">
+    <span> <%= @user.first_name %> </span> |
+    <span> <%= link_to "Logout", session_path, :action => 'destroy', :method => 'delete' %> </span>
+  </div>
+  <h1>
+    האוכל הגיע
+  </h1>
+  <!-- <label for="filter"> סינון:</label> <input type="text" id="filter" /> -->
+  <div id="restsTable">
+    <% @rests.each do |rest| %>
+    <div class="restRow" id="rest_<%=rest.id%>">
+      <div class="restCheck">
+        <% if rest.timediff[:hour] < 3 %>
+           <img src="check.png" title="הוזמן לפני זמן קצר"/>
+           <% end  %>
+      </div>
+      <div class="restName">
+        <%=rest.hebrew_name%> </br>
+      </div>
+      <div class="restImg">
+        <img src="<%=@logo_prefix%><%=rest.logo%>" />
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<div id="confirmScreen">
+  <div id="confirmWindow">
+    <p>
+      האם ברצונך לשלוח הודעה עבור המסעדה הבאה:
+    </p>
+    <div id="confirmRestContainer">
+      <img id="confirmImg" />
+      <div id="confirmName">  </div>
+    </div>
+    <div id="confirmAlert">
+      <b>
+        שים לב!
+      </b>
+      הודעה עבור מסעדה זו נשלחה לפני זמן קצר.
+    </div>
+
+    <%= form_tag("/announce") do %>
+      <%= hidden_field_tag :rest_id %>
+      <%= submit_tag "שלח"%>
+      <%= button_tag "חזור", :type => "button", :id => "confirmCancel" %>
+    <% end %>
+  </div>
+</div>

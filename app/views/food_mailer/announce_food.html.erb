@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <div style="direction:rtl; text-align: right">
+      <h3>
+        המשלוח של
+        <%= @rest.name %>
+        הגיע.
+      </h3>
+      <p>
+        בתיאבון...
+      </p>
+    </div>
+    <hr>
+    <div style="direction:ltr; text-align: left">
+      Announcement sent by <%= mail_to @announcer_email, @announcer, :subject => "Re: #{@subject}" %>
+      <% if Settings.mail_settings.show_link %>
+        using <%= link_to "FoodIsHere", Settings.mail_settings.link %> (<%= Settings.current_version %>)
+      <% end %>
+    </div>
+  </body>
+</html>

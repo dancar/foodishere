@@ -1,0 +1,23 @@
+defaults: &defaults
+  current_version: 0.1 Beta
+  users_domain: ENV["USERS_DOMAIN"]
+  smtp_settings:
+    domain: ENV["SMTP_DOMAIN"]
+    user_name: ENV["SMTP_USER_NAME"]
+    password: ENV["SMTP_PASSWORD"]
+  mail_settings:
+    link: ENV["ANNOUNCER_LINK"]
+    show_link: true
+    from: ENV["ANNOUNCER_FROM"]
+    to: ENV["ANNOUNCER_TO"]
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  mail_settings:
+    show_link: false
