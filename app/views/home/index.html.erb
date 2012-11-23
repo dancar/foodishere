@@ -15,14 +15,22 @@
                           }
 
 </script>
-<div id="tableContainer">
-  <div id="user-div">
-    <span> <%= @user.first_name %> </span> |
-    <span> <%= link_to "Logout", session_path, :action => 'destroy', :method => 'delete' %> </span>
+
+<div id=top-bar>
+  <div id=top-bar-row>
+    <div id="user-div">
+      <span> <%= @user.first_name %> </span> |
+      <span> <%= link_to "Logout", session_path, :action => 'destroy', :method => 'delete' %> </span>
+    </div>
+    <div id="company-logo">
+      <img src="<%= ENV["COMPANY_LOGO"] %>" />
+    </div>
   </div>
+</div>
   <h1>
     האוכל הגיע
   </h1>
+<div id="tableContainer">
   <!-- <label for="filter"> סינון:</label> <input type="text" id="filter" /> -->
   <div id="restsTable">
     <% @rests.each do |rest| %>

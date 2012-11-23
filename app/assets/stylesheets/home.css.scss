@@ -3,11 +3,28 @@ body {
   direction: rtl;
 }
 
-#user-div {
-  text-align: right;
-  direction: ltr;
+#top-bar {
+  display: table;
+  width: 100%;
   border-bottom: 1px solid whitesmoke;
+
 }
+#top-bar-row {
+  display: table-row;
+}
+#user-div {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+  direction: ltr;
+}
+
+#company-logo {
+  display: table-cell;
+  background: white;
+  text-align: left;
+}
+
 
 #restsTable {
   display: table;
