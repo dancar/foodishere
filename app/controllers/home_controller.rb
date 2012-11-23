@@ -5,7 +5,6 @@ class HomeController < ApplicationController
   before_filter :get_user
   def index
     @rests = Restaurant.order("counter DESC, hebrew_name ASC").all
-    @logo_prefix = "http://couponphone.co.il/"
   end
 
   def announce
