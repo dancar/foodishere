@@ -8,7 +8,7 @@
   name: "<%=rest.hebrew_name.html_safe%>",
   imgSrc: "<%=rest.logo %>",
 
-  announced_recently: <%= rest.timediff[:hour] <= 3 ? true : false%>
+  announced_recently: <%= rest.is_recent %>
                           }
                           <%= last ? "" : ","%>
                           <% end %>

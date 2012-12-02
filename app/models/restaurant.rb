@@ -1,7 +1,7 @@
 require 'time_diff'
 class Restaurant < ActiveRecord::Base
-  def timediff
-    Time.diff(Time.now, last_announcement)
+  def is_recent
+    (Time.now.to_i - last_announcement.to_i) < 60 * 60 * 3
   end
 
   def name
