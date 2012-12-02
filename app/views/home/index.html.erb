@@ -36,7 +36,7 @@
     <% @rests.each do |rest| %>
     <div class="restRow" id="rest_<%=rest.id%>">
       <div class="restCheck">
-        <% if rest.timediff[:hour] < 3 %>
+        <% if rest.is_recent %>
            <img src="check.png" title="הוזמן לפני זמן קצר"/>
            <% end  %>
       </div>
