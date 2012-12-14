@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 arrived = (div) ->
-  id = parseInt(this.id.substring("rest_".length))
+  id = parse_row_id(this)
   rest = window.restData[id]
   $("#confirmName").text(rest.name)
   $("#confirmImg").attr("src", rest.imgSrc)
@@ -18,9 +18,18 @@ confirmCancel = () ->
   $("#tableContainer").show()
   $("#confirmScreen").hide()
 
+parse_row_id = (row) ->
+  parseInt(row.id.match(/rest_([\d]+)/)[1])
 
-filter = () ->
-  console.log "ok"
+invoke_filtering = () ->
+  filter_text = $("#filter").val()
+  for id, rest of window.restData
+    pass = filter(filter_text, rest.name)
+    func = if pass then "show" else "hide"
+    $(rest.row)[func]()
+
+filter = (filter_text, rest_name) ->
+  rest_name.indexOf(filter_text) > -1
 
 $(document).ready ->
   $(".restRow").hover( ->
@@ -28,6 +37,11 @@ $(document).ready ->
   , ->
     $(this).removeClass("restHover")
   )
-  $(".restRow").click arrived
+
+  # Find all rest rows and bind them
+  $(".restRow").each (index, row) ->
+    $(row).click arrived
+    rest_id = parse_row_id(row)
+    window.restData[rest_id].row = row
   $("#confirmCancel").click confirmCancel
-  # $("#filter").oninput filter
+  $("#filter").change(invoke_filtering).keyup(invoke_filtering)

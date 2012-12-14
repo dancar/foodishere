@@ -4,7 +4,15 @@ class HomeController < ApplicationController
   before_filter :ensure_signed_in
   before_filter :get_user
   def index
-    @rests = Restaurant.order("counter DESC, hebrew_name ASC").all
+    @rests_raw = Restaurant.order("counter DESC, hebrew_name ASC").all
+    @rests = {}
+    @rests_raw.each do |rest|
+      @rests[rest.id] = {
+        name: rest.hebrew_name.html_safe,
+        imgSrc: rest.logo,
+        announced_recently: rest.is_recent
+      }
+    end
   end
 
   def announce

@@ -1,19 +1,5 @@
 <script type="text/javascript">
-  window.restData = {
-  <% @rests.each_index do |ind|
-     rest = @rests[ind]
-     last = ind + 1 == @rests.length
-     %>
-  <%=rest.id %> : {
-  name: "<%=rest.hebrew_name.html_safe%>",
-  imgSrc: "<%=rest.logo %>",
-
-  announced_recently: <%= rest.is_recent %>
-                          }
-                          <%= last ? "" : ","%>
-                          <% end %>
-                          }
-
+  window.restData = <%= @rests.to_json.html_safe %>
 </script>
 
 <div id=top-bar>
@@ -31,9 +17,9 @@
     האוכל הגיע
   </h1>
 <div id="tableContainer">
-  <!-- <label for="filter"> סינון:</label> <input type="text" id="filter" /> -->
+  <label for="filter"> סינון:</label> <input type="text" id="filter" />
   <div id="restsTable">
-    <% @rests.each do |rest| %>
+    <% @rests_raw.each do |rest| %>
     <div class="restRow" id="rest_<%=rest.id%>">
       <div class="restCheck">
         <% if rest.is_recent %>
