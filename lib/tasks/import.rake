@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'json'
+require 'fetch_rests'
 
 JSON_SOURCE = File.join(Rails.root, "rests.json")
 task :import => :environment do
@@ -13,6 +14,13 @@ task :import => :environment do
     "RestaurantLogo" => "sandwiches.jpg",
     "RestaurantID" => -1
   }, "/")
+end
+
+desc "Fetch and update rests from CP"
+task :update_rests => :environment do
+  FoodIsHere::fetch_rests.each do |r|
+    add_rest(r, "http://couponphone.co.il/")
+  end
 end
 
 def add_rest(rest, logo_prefix = "")
