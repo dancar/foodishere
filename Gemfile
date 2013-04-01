@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem "mechanize"
 gem "settingslogic"
 gem "ruby-openid"
 gem "rack-openid"
