@@ -18,6 +18,23 @@
   </h1>
 <div id="tableContainer">
   <label for="filter"> סינון:</label> <input type="text" id="filter" />
+
+  <div id="linksDiv">
+    <% if @showing_all %>
+    <a href="/">
+      הצג משלוחים צפויים בלבד
+    </a>
+    <% else %>
+    <i>
+      מציג משלוחים צפויים
+      (נסיוני)
+    </i>
+    |
+    <a href="/?all=1">
+      הצג הכל
+    </a>
+    <% end %>
+  </div>
   <div id="restsTable">
     <% @rests_raw.each do |rest| %>
     <div class="restRow" id="rest_<%=rest.id%>">

@@ -1,10 +1,17 @@
 require 'json'
-require 'pp'
+require 'fetch_orders'
 class HomeController < ApplicationController
   before_filter :ensure_signed_in
   before_filter :get_user
   def index
-    @rests_raw = Restaurant.order("counter DESC, hebrew_name ASC").all
+    if params["all"]
+      @rests_raw = Restaurant.order("hebrew_name ASC").all
+      @showing_all = true
+    else
+      expected_rests_ids = FoodIsHere::Orders.fetch_orders
+      @showing_all = false
+      @rests_raw = Restaurant.order("hebrew_name ASC").where(:cp_id => expected_rests_ids)
+    end
     @rests = {}
     @rests_raw.each do |rest|
       @rests[rest.id] = {
