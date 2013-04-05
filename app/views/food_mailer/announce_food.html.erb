@@ -5,6 +5,7 @@
   </head>
   <body>
     <div style="direction:rtl; text-align: right">
+      <% if @comments.blank? %>
       <h3>
         המשלוח של
         <%= @rest.name %>
@@ -13,12 +14,18 @@
       <p>
         בתיאבון...
       </p>
+      <% else %>
+      <p>
+        <%= @comments %>
+      </p>
+      <% end %>
     </div>
+
     <hr>
     <div style="direction:ltr; text-align: left">
       Announcement sent by <%= mail_to @announcer_email, @announcer, :subject => "Re: #{@subject}" %>
       <% if Settings.mail_settings.show_link %>
-        using FoodIsHere <%= Settings.current_version %>
+      using <%= link_to "FoodIsHere", ENV["APP_URL"] %> <%= Settings.current_version %>
       <% end %>
     </div>
   </body>

@@ -1,18 +1,5 @@
 last_filter = ""
 
-arrived = (div) ->
-  id = parse_row_id(this)
-  rest = window.restData[id]
-  $("#confirmName").text(rest.name)
-  $("#confirmImg").attr("src", rest.imgSrc)
-  $("#tableContainer").hide()
-  $("#rest_id").attr("value", id)
-  if rest.announced_recently
-     $("#confirmAlert").show()
-  else
-    $("#confirmAlert").hide()
-  $("#confirmScreen").show()
-
 confirmCancel = () ->
   $("#tableContainer").show()
   $("#confirmScreen").hide()
@@ -24,11 +11,9 @@ parse_row_id = (row) ->
 invoke_filtering = () ->
   filter_text = $("#filter").val()
   return if filter_text == last_filter
-  console.log "filtering #{last_filter}"
   for id, rest of window.restData
-    pass = filter(filter_text, rest.name)
-    func = if pass then "show" else "hide"
-    $(rest.row)[func]()
+    row = $(rest.row)
+    if filter(filter_text, rest.name) then row.show() else row.hide()
   last_filter = filter_text
 
 filter = (filter_text, rest_name) ->
@@ -39,6 +24,24 @@ filter = (filter_text, rest_name) ->
     return false if pos == -1
   true
 
+window.confirmAnnounce = (id) ->
+  rest = window.restData[id]
+  comments = window.prompt("הערות עבור המשלוח של" + "\n" + rest.name)
+  if comments != null
+    img = $("#status_img_" + id)
+    previousImgSrc = img.attr("src")
+    img.attr("src", "loading.gif")
+    $.ajax "announce",
+      data:
+        rest_id: id
+        comments: comments
+      success: ->
+        img.attr("src", "check.png")
+      error: ->
+        img.attr("src", previousImgSrc)
+        window.alert("שליחת הודעה עבור" + " \"" + rest.name + "\" " + "נכשלה. באסה.")
+
+
 $(document).ready ->
   $(".restRow").hover( ->
     $(this).addClass("restHover")
@@ -48,7 +51,6 @@ $(document).ready ->
 
   # Find all rest rows and bind them
   $(".restRow").each (index, row) ->
-    $(row).click arrived
     rest_id = parse_row_id(row)
     window.restData[rest_id].row = row
   $("#confirmCancel").click confirmCancel

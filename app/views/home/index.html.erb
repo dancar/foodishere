@@ -8,14 +8,15 @@
       <span> <%= @user.first_name %> </span> |
       <span> <%= link_to "Logout", session_path, :action => 'destroy', :method => 'delete' %> </span>
     </div>
+    <div id="headline">
+      האוכל הגיע
+    </div>
+
     <div id="company-logo">
-      <img src="<%= ENV["COMPANY_LOGO"] %>" />
+      <img src="<%= ENV["COMPANY_LOGO"] %>"  />
     </div>
   </div>
 </div>
-  <h1>
-    האוכל הגיע
-  </h1>
 <div id="tableContainer">
   <label for="filter"> סינון:</label> <input type="text" id="filter" />
 
@@ -27,7 +28,6 @@
     <% else %>
     <i>
       מציג משלוחים צפויים
-      (נסיוני)
     </i>
     |
     <a href="/?all=1">
@@ -37,11 +37,15 @@
   </div>
   <div id="restsTable">
     <% @rests_raw.each do |rest| %>
-    <div class="restRow" id="rest_<%=rest.id%>">
+    <div class="restRow" id="rest_<%=rest.id%>" onclick="confirmAnnounce(<%=rest.id%>)">
       <div class="restCheck">
-        <% if rest.is_recent %>
-           <img src="check.png" title="הוזמן לפני זמן קצר"/>
-           <% end  %>
+        <img id = "status_img_<%=rest.id%>"
+             <% if rest.is_recent %>
+               src="check.png"
+             <% else %>
+               src="pending.gif"
+             <% end  %>
+             title="הוזמן לפני זמן קצר"/>
       </div>
       <div class="restName">
         <%=rest.hebrew_name%> </br>
@@ -53,26 +57,7 @@
     <% end %>
   </div>
 </div>
-<div id="confirmScreen">
-  <div id="confirmWindow">
-    <p>
-      האם ברצונך לשלוח הודעה עבור המסעדה הבאה:
-    </p>
-    <div id="confirmRestContainer">
-      <img id="confirmImg" />
-      <div id="confirmName">  </div>
-    </div>
-    <div id="confirmAlert">
-      <b>
-        שים לב!
-      </b>
-      הודעה עבור מסעדה זו נשלחה לפני זמן קצר.
-    </div>
-
-    <%= form_tag("/announce") do %>
-      <%= hidden_field_tag :rest_id %>
-      <%= submit_tag "שלח"%>
-      <%= button_tag "חזור", :type => "button", :id => "confirmCancel" %>
-    <% end %>
-  </div>
+<div id="cache">
+  <img src="loading.gif">
+  <img src="check.png">
 </div>

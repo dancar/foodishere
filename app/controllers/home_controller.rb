@@ -23,12 +23,14 @@ class HomeController < ApplicationController
   end
 
   def announce
-    @rest = Restaurant.find_by_id(request.parameters["rest_id"])
-    raise "Restaurant not found with id=#{request.parameters["rest_id"]}" unless @rest
-    @rest.counter += 1
-    @rest.last_announcement = Time.now
-    @rest.save
-    FoodMailer.announce_food(@rest, @user)
+    rest = Restaurant.find_by_id(request.parameters["rest_id"])
+    comments = request.parameters["comments"]
+    raise "Restaurant not found with id=#{request.parameters["rest_id"]}" unless rest
+    rest.counter += 1
+    rest.last_announcement = Time.now
+    rest.save
+    FoodMailer.announce_food(rest, @user, comments)
+    head :no_content
   end
 
   def logout
