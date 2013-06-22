@@ -1,0 +1,13 @@
+* Features:
+** TODO Optional authentication
+** TODO Upgrade to Ruby 2 and Rails 4
+** TODO Do not query CP for current deliveries each time
+** TODO Collect events
+ - Page Hits
+ - Announcements
+* TODO Server configuration:
+** TODO Get a URL
+** TODO Cron for updating rests list
+** TODO Cron for querying current deliveries
+* Extra
+** Show statistics
