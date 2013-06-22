@@ -15,3 +15,5 @@
 /tmp
 .env
 poll.log
+# Ignore application configuration
+/config/application.yml

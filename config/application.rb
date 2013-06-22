@@ -61,6 +61,12 @@ module Foodishere
     config.assets.version = '1.0'
     config.middleware.use 'Rack::OpenID'
 
+    # Load environment application settings:
+    env_configs = YAML.load(File.read("config/application.yml"))
+    env_configs.each do |k,v|
+      ENV[k] ||= v
+    end
+
     config.after_initialize do
       ActionMailer::Base.smtp_settings = {
         :port => 587,
