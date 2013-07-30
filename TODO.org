@@ -1,5 +1,6 @@
 * Bugs:
 ** TODO Success sign shows even upon send failure
+** TODO Logout doesn't work
 * Features:
 ** TODO Optional authentication
 ** TODO Custom announcements (Dinner announcements)

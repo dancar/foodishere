@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   before_filter :get_user
   def index
     if params["all"]
-      @rests_raw = Restaurant.order("hebrew_name ASC").all
+      @rests_raw = Restaurant.order("hebrew_name ASC")
       @showing_all = true
     else
       expected_rests_ids = FoodIsHere::Orders.fetch_orders
