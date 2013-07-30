@@ -1,5 +1,5 @@
 defaults: &defaults
-  current_version: 1.0 Beta
+  current_version: 2.0
   users_domain: <%= ENV["USERS_DOMAIN"] %>
   smtp_settings:
     domain: <%= ENV["SMTP_DOMAIN"] %>

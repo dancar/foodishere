@@ -1,5 +1,6 @@
 * Features:
 ** TODO Optional authentication
+** TODO Custom announcements (Dinner announcements)
 ** TODO Upgrade to Ruby 2 and Rails 4
 ** TODO Do not query CP for current deliveries each time
 ** TODO Collect events

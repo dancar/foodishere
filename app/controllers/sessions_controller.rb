@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
   def create
     if openid = request.env[Rack::OpenID::RESPONSE]
       begin
-        raise "OpenID failed" unless openid.status == :success
+        raise "OpenID failed (#{openid.status})." unless openid.status == :success
         ax = OpenID::AX::FetchResponse.from_success_response(openid)
         @email = ax.get_single('http://axschema.org/contact/email')
         return render(:action => 'invalid_email') unless valid_email(@email)
