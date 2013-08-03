@@ -1,13 +1,8 @@
-<script type="text/javascript">
-  window.restData = <%= @rests.to_json.html_safe %>
+<script type="text/javascript"> window.restData = <%= @rests.to_json.html_safe %>
 </script>
 
-<div id=top-bar>
-  <div id=top-bar-row>
-    <div id="user-div">
-      <span> <%= @user.first_name %> </span> |
-      <span> <%= link_to "Logout", session_path, :action => 'destroy', :method => 'delete' %> </span>
-    </div>
+<div id="top-bar">
+  <div id="top-bar-row">
     <div id="headline">
       האוכל הגיע
     </div>

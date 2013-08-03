@@ -13,15 +13,10 @@ body {
 #top-bar-row {
   display: table-row;
 }
-#user-div {
-  display: table-cell;
-  text-align: right;
-  vertical-align: middle;
-  direction: ltr;
-}
+
 #headline {
   display: table-cell;
-  text-align: center;
+  text-align: right;
   vertical-align: middle;
   font-weight: bold;
 }

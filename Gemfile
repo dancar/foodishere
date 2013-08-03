@@ -1,8 +1,6 @@
 source "https://rubygems.org"
 gem "mechanize"
 gem "settingslogic"
-gem "ruby-openid"
-gem "rack-openid"
 
 gem "thin"
 gem "rails", "4.0.0"

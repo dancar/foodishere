@@ -23,10 +23,7 @@
 
     <hr>
     <div style="direction:ltr; text-align: left">
-      Announcement sent by <%= mail_to @announcer_email, @announcer, :subject => "Re: #{@subject}" %>
-      <% if Settings.mail_settings.show_link %>
-      using <%= link_to "FoodIsHere", ENV["APP_URL"] %> <%= Settings.current_version %>
-      <% end %>
+      Announcement sent using <%= link_to "FoodIsHere", ENV["APP_URL"] %> <%= Settings.current_version %>
     </div>
   </body>
 </html>

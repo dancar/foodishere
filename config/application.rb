@@ -1,5 +1,4 @@
 require File.expand_path('../boot', __FILE__)
-require 'rack/openid'
 
 require 'rails/all'
 
@@ -52,8 +51,7 @@ module Foodishere
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
-    config.middleware.use 'Rack::OpenID'
+    config.assets.version = '2.0'
 
     # Load environment application settings:
     env_configs = YAML.load(File.read("config/application.yml"))

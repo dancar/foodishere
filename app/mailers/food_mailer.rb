@@ -1,13 +1,13 @@
 class FoodMailer < ActionMailer::Base
-  default :from => Settings.mail_settings.from,
-    :to => Settings.mail_settings.to
-  def announce_food(rest, user, comments)
+  def announce_food(rest, comments)
     @rest = rest
     @comments = comments
-    @announcer = "#{user.first_name} #{user.last_name}"
-    @announcer = user.email.split["@"][0] unless @announcer
-    @announcer_email = user.email
     @subject = "[Food] #{rest.hebrew_name}"
-    mail(:subject => @subject).deliver
+
+    mail(
+      subject: @subject,
+      from: Settings.mail_settings.from,
+      to: Settings.mail_settings.to
+    ).deliver
   end
 end
