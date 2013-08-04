@@ -1,0 +1,24 @@
+<div class="restsTable">
+  <% rests.each do |rest| %>
+  <div class="restRow"
+       id="<%= (dinner ? "dinner_" : "rest_") + rest.id.to_s %>"
+       onclick="confirmAnnounce(<%=rest.id%>, <%= dinner %>)"
+       >
+    <div class="restImgDiv">
+      <div class="restImgContainer" >
+        <img class="restImg" src="<%=rest.logo%>" />
+      </div>
+    </div>
+
+    <div class="restName">
+      <%=rest.hebrew_name%> </br>
+    </div>
+
+    <div class="restCheck">
+      <img id="status_img_<%=rest.id%>"
+           src="<%= rest.is_recent ? "check.png" : "pending.gif" %>"
+           title="מצב שליחת הודעה" />
+    </div>
+  </div>
+  <% end %>
+</div>

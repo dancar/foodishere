@@ -13,6 +13,16 @@
   </div>
 </div>
 <div id="tableContainer">
+  <% if @dinner_rests %>
+  <div class="dinner">
+    <div class="subtitle">
+      <h2>
+ארוחת ערב
+      </h2>
+    </div>
+    <%= render partial: "rests_table", locals: {rests: @dinner_rests, dinner: true} %>
+  </div>
+  <% end %>
   <label for="filter"> סינון:</label> <input type="text" id="filter" />
 
   <div id="linksDiv">
@@ -30,27 +40,7 @@
     </a>
     <% end %>
   </div>
-  <div id="restsTable">
-    <% @rests_raw.each do |rest| %>
-    <div class="restRow" id="rest_<%=rest.id%>" onclick="confirmAnnounce(<%=rest.id%>)">
-      <div class="restCheck">
-        <img id = "status_img_<%=rest.id%>"
-             <% if rest.is_recent %>
-               src="check.png"
-             <% else %>
-               src="pending.gif"
-             <% end  %>
-             title="הוזמן לפני זמן קצר"/>
-      </div>
-      <div class="restName">
-        <%=rest.hebrew_name%> </br>
-      </div>
-      <div class="restImg">
-        <img src="<%=rest.logo%>" />
-      </div>
-    </div>
-    <% end %>
-  </div>
+  <%= render partial: "rests_table", locals: {rests: @rests_raw, dinner: false} %>
 </div>
 <div id="cache">
   <img src="loading.gif">

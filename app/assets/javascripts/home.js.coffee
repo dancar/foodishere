@@ -6,7 +6,7 @@ confirmCancel = () ->
 
 # Find rest id according to dom row
 parse_row_id = (row) ->
-  parseInt(row.id.match(/rest_([\d]+)/)[1])
+  parseInt(row.id.match(/(rest|dinner)_(-?[\d]+)/)[2])
 
 invoke_filtering = () ->
   filter_text = $("#filter").val()
@@ -24,7 +24,7 @@ filter = (filter_text, rest_name) ->
     return false if pos == -1
   true
 
-window.confirmAnnounce = (id) ->
+window.confirmAnnounce = (id, dinner) ->
   rest = window.restData[id]
   comments = window.prompt("הערות עבור המשלוח של" + "\n" + rest.name)
   if comments != null
@@ -35,11 +35,12 @@ window.confirmAnnounce = (id) ->
       data:
         rest_id: id
         comments: comments
+        dinner: dinner && "true"
       success: ->
         img.attr("src", "check.png")
       error: ->
         img.attr("src", previousImgSrc)
-        window.alert("שליחת הודעה עבור" + " \"" + rest.name + "\" " + "נכשלה. באסה.")
+        window.alert("שליחת הודעה עבור" + " \"" + rest.name + "\" " + "נכשלה. באסוש.")
 
 
 $(document).ready ->

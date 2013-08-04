@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body style="direction:rtl;>
+    <div style="direction:rtl; text-align: right">
+      <% if @comments.blank? %>
+        <%= yield %>
+      <% else %>
+      <p>
+        <%= @comments %>
+      </p>
+      <% end %>
+    </div>
+
+    <hr>
+    <div style="direction:ltr; text-align: left">
+      Announcement sent using <%= link_to "FoodIsHere", ENV["APP_URL"] %> <%= Settings.current_version %>
+    </div>
+  </body>
+</html>

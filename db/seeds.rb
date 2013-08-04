@@ -1,7 +1,37 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# -*- coding: utf-8 -*-
+
+dinners = [
+  {
+    hebrew_name: "סנדוויצ'ים",
+    id: -1,
+    logo: "sandwiches.jpg",
+  },
+
+  {
+    hebrew_name: "פיצה רגילה",
+    id: -2,
+    logo: "pizza.jpg",
+  },
+
+  {
+    hebrew_name: "פיצה כשרה",
+    id: -3,
+    logo: "kosherpizza.jpg",
+  },
+
+  {
+    hebrew_name: "פיצה טיבעונית",
+    id: -4,
+    logo: "veganpizza.jpg",
+  }
+]
+
+dinners.each do |dinner|
+  rest = Restaurant.find_or_create_by(id: dinner[:id])
+  rest.hebrew_name = dinner[:hebrew_name]
+  rest.logo = dinner[:logo]
+  rest.cp_id = dinner[:id]
+  rest.counter ||= 0
+  rest.last_announcement ||= Time.new(0)
+  rest.save!
+end

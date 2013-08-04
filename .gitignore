@@ -18,3 +18,4 @@ poll.log
 # Ignore application configuration
 /config/application.yml
 public/assets/*
+db/schema.rb

@@ -9,6 +9,15 @@ defaults: &defaults
     link: <%= ENV["ANNOUNCER_LINK"] %>
     from: <%= ENV["ANNOUNCER_FROM"] %>
     to: <%= ENV["ANNOUNCER_TO"] %>
+  dinners:
+    dinner_time: "17:30"
+    timezone: "+0300"
+    weekly_menu:
+      Sunday: [-1]
+      Monday: [-2, -3, -4]
+      Tuesday: [-1]
+      Wednesday: [-1]
+      Thursday: [-1]
 
 development:
   <<: *defaults

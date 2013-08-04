@@ -2,27 +2,35 @@ require 'json'
 require 'fetch_orders'
 class HomeController < ApplicationController
   def index
-    if params["all"]
-      @rests_raw = Restaurant.order("hebrew_name ASC")
-      @showing_all = true
+    @showing_all = params["all"]
+    if @showing_all
+      @rests_raw = Restaurant.all
     else
-      expected_rests_ids = FoodIsHere::Orders.fetch_orders
-      @showing_all = false
-      @rests_raw = Restaurant.order("hebrew_name ASC").where(:cp_id => expected_rests_ids)
+      expected_rests_ids = FoodIsHere::Orders.fetch_orders #TODO: something nicer
+      @rests_raw = Restaurant.where(:cp_id => expected_rests_ids)
     end
     @rests = {}
     @rests_raw.each do |rest|
-      @rests[rest.id] = {
-        name: rest.hebrew_name.html_safe,
-        imgSrc: rest.logo,
-        announced_recently: rest.is_recent
-      }
+      @rests[rest.id] = rest.to_client_format
+    end
+    if dinner_time?
+      @dinner_rests = get_todays_dinner_rests
+      @dinner_rests.each do |dinner|
+        @rests[dinner.id] = dinner.to_client_format
+      end
+
+      # Remove dinner rests from normal rests:
+      dinner_ids = @dinner_rests.map &:id
+      @rests_raw.reject! do |rest|
+        dinner_ids.include? rest.id
+      end
     end
   end
 
   def announce
     rest = Restaurant.find_by_id(request.parameters["rest_id"])
     comments = request.parameters["comments"]
+    is_dinner = request.parameters["dinner"] == "true"
     raise "Restaurant not found with id=#{request.parameters["rest_id"]}" unless rest
     if rest.last_announcement > Settings.digest_period.minutes.ago
       head :no_content
@@ -31,8 +39,21 @@ class HomeController < ApplicationController
     rest.counter += 1
     rest.last_announcement = Time.now
     rest.save
-    FoodMailer.announce_food(rest, comments)
+    FoodMailer.announce(rest, comments, is_dinner)
     head :no_content
+  end
+
+  private
+
+  def dinner_time?
+    dinner_time = Time.parse("#{Settings.dinners.dinner_time} #{Settings.dinners.timezone}")
+    Time.now > dinner_time
+  end
+
+  def get_todays_dinner_rests
+    today = Time.now.strftime("%A")
+    todays_dinners_ids = Settings.dinners.weekly_menu[today]
+    Restaurant.order("id DESC").find(todays_dinners_ids)
   end
 
 end

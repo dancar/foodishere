@@ -2,20 +2,6 @@
 require 'json'
 require 'fetch_rests'
 
-JSON_SOURCE = File.join(Rails.root, "rests.json")
-task :import => :environment do
-  source_json = ENV["SOURCE"] || JSON_SOURCE
-  imported = JSON.load(File.open(source_json))
-  imported["d"].each do |rest|
-    add_rest(rest, "http://couponphone.co.il/")
-  end
-  add_rest({
-    "RestaurantName" => "סנדויצ'ים",
-    "RestaurantLogo" => "sandwiches.jpg",
-    "RestaurantID" => -1
-  }, "/")
-end
-
 desc "Fetch and update rests from CP"
 task :update_rests => :environment do
   FoodIsHere::fetch_rests.each do |r|
@@ -30,7 +16,7 @@ def add_rest(rest, logo_prefix = "")
       r.hebrew_name = rest["RestaurantName"]
       r.logo = logo_prefix + rest["RestaurantLogo"]
       r.cp_id = rest["RestaurantID"]
-      r.last_announcement = Time.now
+      r.last_announcement = Time.new(0)
       r.counter = 0
     end
     puts "created #{r.inspect}"
