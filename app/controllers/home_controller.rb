@@ -1,18 +1,18 @@
 require 'json'
-require 'fetch_orders'
+
 class HomeController < ApplicationController
   def index
     @showing_all = params["all"]
     if @showing_all
       @rests_raw = Restaurant.all
     else
-      expected_rests_ids = FoodIsHere::Orders.fetch_orders #TODO: something nicer
-      @rests_raw = Restaurant.where(:cp_id => expected_rests_ids)
+      @rests_raw = Restaurant.where(delivery_expected: true)
     end
     @rests = {}
     @rests_raw.each do |rest|
       @rests[rest.id] = rest.to_client_format
     end
+
     if dinner_time?
       @dinner_rests = get_todays_dinner_rests
       @dinner_rests.each do |dinner|
@@ -38,8 +38,8 @@ class HomeController < ApplicationController
     end
     rest.counter += 1
     rest.last_announcement = Time.now
-    rest.save
     FoodMailer.announce(rest, comments, is_dinner)
+    rest.save
     head :no_content
   end
 

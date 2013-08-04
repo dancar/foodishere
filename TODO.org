@@ -1,13 +1,14 @@
 * Bugs:
 ** TODO Success sign shows even upon send failure
-** TODO Logout doesn't work
+** DONE Logout doesn't work
+   solved by removing authentication.
 * Features:
 ** TODO Optional authentication
-** TODO Custom announcements (Dinner announcements)
+** DONE Custom announcements (Dinner announcements)
 ** TODO quick bookmark add
    "Add to homescreen" ?
-** TODO Upgrade to Ruby 2 and Rails 4
-** TODO Do not query CP for current deliveries each time
+** DONE Upgrade to Ruby 2 and Rails 4
+** DONE Do not query CP for current deliveries each time
 ** TODO Collect events
  - Page Hits
  - Announcements
