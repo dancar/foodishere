@@ -1,11 +1,46 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+Sandwiches:
+  id: -1
+  hebrew_name: סנדוויצ'ים
+  english_name: Sandwiches
+  logo: sandwiches.jpg
+  cp_id: -1
+  counter: 4
+  last_announcement: 2013-10-10 15:11:17.018934000 Z
+  created_at: 2013-08-04 02:07:08.312209000 Z
+  updated_at: 2013-10-10 15:11:18.813072000 Z
+  delivery_expected: false
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+veganpizza:
+  hebrew_name: פיצה טיבעונית
+  english_name:
+  logo: veganpizza.jpg
+  cp_id: -4
+  counter: 4
+  last_announcement: 2013-10-14 15:35:22.532691000 Z
+  created_at: 2013-08-04 02:07:08.562818000 Z
+  updated_at: 2013-10-14 15:35:23.480754000 Z
+  delivery_expected: false
+
+kosherpizza:
+  id: -3
+  hebrew_name: פיצה כשרה
+  english_name:
+  logo: kosherpizza.jpg
+  cp_id: -3
+  counter: 2
+  last_announcement: 2013-09-09 15:37:33.826832000 Z
+  created_at: 2013-08-04 02:07:08.488178000 Z
+  updated_at: 2013-09-09 15:37:34.966468000 Z
+  delivery_expected: false
+
+pizza:
+  id: -2
+  hebrew_name: פיצה רגילה
+  english_name:
+  logo: pizza.jpg
+  cp_id: -2
+  counter: 5
+  last_announcement: 2013-09-30 15:26:15.532718000 Z
+  created_at: 2013-08-04 02:07:08.404714000 Z
+  updated_at: 2013-09-30 15:26:17.480432000 Z
+  delivery_expected: false

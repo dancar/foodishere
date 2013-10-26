@@ -3,11 +3,20 @@
 <head>
   <title>Food is here</title>
   <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <link rel="icon" type="image/png" sizes="128x128" href="/favicon.png" />
+  <% [196, 128, 64, 16].each do |size| %>
+    <link rel="shortcut icon" sizes="<%= size %>x<%= size %>" href="rsp-<%= size %>.png">
+    <link rel="apple-touch-icon" sizes="<%= size %>x<%= size %>" href="rsp-<%= size %>.png" />
+  <% end  %>
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <link rel="apple-touch-startup-image" href="/rsp-startup.png" />
+
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="apple-touch-icon" href="/favicon.png" />
 </head>
 <body>
 
