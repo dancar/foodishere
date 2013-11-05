@@ -1,6 +1,9 @@
 require 'json'
 require 'fetch_orders'
 class HomeController < ApplicationController
+  before_filter do
+    redirect_to "http://food.ma-kaf.com", status: 301
+  end
   before_filter :ensure_signed_in
   before_filter :get_user
   def index
